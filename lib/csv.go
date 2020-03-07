@@ -8,10 +8,10 @@ import (
 	"time"
 )
 
-type task struct {
-	date           string
-	issues         string
-	descriptionJob string
+type Task struct {
+	Date           string `json:"date"`
+	Issuer         string `json:"issuer"`
+	DescriptionJob string `json:"task"`
 }
 
 // CheckError untuk cek error jika terjadi error
@@ -25,16 +25,21 @@ func CheckError(message string, err error) {
 func CreateCSV() io.Writer {
 	today := time.Now()
 	year, month, _ := today.Date()
-	filename := fmt.Sprintf("kegiatan-bulan-%02d-%d.csv", month, year)
+	filename := fmt.Sprintf("kegiatan/kegiatan-bulan-%02d-%d.csv", month, year)
 
 	if err := fileExists(filename); err {
 		fmt.Println("file tidak ada, buat baru")
 		file, err := os.Create(filename)
 		CheckError("error create file", err)
 		fmt.Printf("file csv dengan nama %s telah dibuat \n", filename)
-		defer file.Close()
+		return file
 	} else {
 		fmt.Println("file telah ada")
+		file, err := os.OpenFile(filename, os.O_WRONLY|os.O_APPEND, 0644)
+		if err != nil {
+			log.Fatalf("failed opening file: %s", err)
+		}
+		return file
 	}
 }
 

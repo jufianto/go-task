@@ -8,8 +8,6 @@ import (
 
 func main() {
 	fmt.Println("Initate Go Task")
-	lib.CreateCSV()
-
 	mux := new(lib.JufiMux)
 	Route(mux)
 	server := new(http.Server)
