@@ -22,5 +22,5 @@ sistem aplikasi hal kegiatan apa saja yang sudah dilakukan dan data tersebut dis
 
 ## Cara Penggunaan Hasil Build Exe 
 1. clone repository ini 
-2. pergi ke folder build dan jalankan main.exe 
+2. pergi ke folder build dan jalankan go-task.exe 
 3. dan ikuti langkah 4 sampai dengan 5 pada bagian penggunaan aplikasi dev
