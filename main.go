@@ -11,7 +11,7 @@ func main() {
 	mux := new(lib.JufiMux)
 	Route(mux)
 	server := new(http.Server)
-	port := "8000"
+	port := "1700"
 	server.Addr = fmt.Sprintf(":%s", port)
 	server.Handler = mux
 	fmt.Printf("listen and serve on localhost port %s \n", port)
