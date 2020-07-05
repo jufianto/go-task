@@ -34,8 +34,7 @@ func GenerateFileName() (fileName string) {
 func (t *Task) TambahTask() {
 	t.Date = time.Now().Format("Monday, 02 January 2006")
 	data := []string{t.Date, t.Issuer, t.DescriptionJob}
-	file, err := os.OpenFile(GenerateFileName(), os.O_APPEND|os.O_WRONLY, 0600)
-	CheckError("error when open file:  ", err)
+	file := CreateCSV(GenerateFileName())
 	writer := csv.NewWriter(file)
 	writer.Write(data)
 	defer writer.Flush()
@@ -52,14 +51,13 @@ func ReadCSV(nameFile string) [][]string {
 
 // CreateCSV buat file csv berdasarkan bulan dan tahun, jika tidak ada buat baru
 func CreateCSV(fileName string) io.Writer {
-	if err := fileExists(fileName); err {
-		fmt.Println("file tidak ada, buat baru")
+	if err := fileExists(fileName); !err {
+		fmt.Println("file tidak ada, buat baru", fileName)
 		file, err := os.Create(fileName)
 		CheckError("error create file", err)
 		fmt.Printf("file csv dengan nama %s telah dibuat \n", fileName)
 		return file
 	} else {
-		fmt.Println("file telah ada")
 		file, err := os.OpenFile(fileName, os.O_WRONLY|os.O_APPEND, 0644)
 		if err != nil {
 			log.Fatalf("failed opening file: %s", err)

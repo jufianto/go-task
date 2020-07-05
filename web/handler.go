@@ -2,8 +2,9 @@ package web
 
 import (
 	"encoding/json"
-	"github.com/jufianto/go-task/lib"
 	"net/http"
+
+	"github.com/jufianto/go-task/lib"
 )
 
 type HandlerInterface interface {
@@ -17,7 +18,8 @@ func (h Handler) IndexHandler(w http.ResponseWriter, r *http.Request) {
 	method := r.Method
 	switch method {
 	case "GET":
-		w.Write([]byte("hello dolli"))
+		w.Header().Add("Content-Type", "application/json")
+		w.Write([]byte("NICE"))
 
 	case "POST":
 		task := lib.Task{}
